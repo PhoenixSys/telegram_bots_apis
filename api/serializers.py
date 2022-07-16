@@ -5,4 +5,5 @@ from .models import BotUsers
 class UsersListSerializer(serializers.ModelSerializer):
     class Meta:
         model = BotUsers
-        fields = ['user_id', 'first_name', 'last_name', 'username']
+        fields = '__all__'
+        read_only_fields = ['created_at', 'updated_at']
