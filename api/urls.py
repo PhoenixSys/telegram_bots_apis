@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('users_register_login/', views.RegisterLoginUsers.as_view()),
     path('users_list/', views.UsersList.as_view()),
+    path('update_user_location/', views.UpdateUserLocation.as_view()),
 
 ]
