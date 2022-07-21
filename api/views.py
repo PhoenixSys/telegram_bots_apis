@@ -119,9 +119,13 @@ class UpdateUserLocation(APIView):
             user_id = request.data.get("user_id")
             latitude = request.data.get("latitude")
             longitude = request.data.get("longitude")
+            city = request.data.get("city")
+            country = request.data.get("country")
             new_data = UsersSerializer(BotUsers.objects.get(user_id=user_id)).data
             new_data["latitude"] = latitude
             new_data["longitude"] = longitude
+            new_data["city"] = city
+            new_data["country"] = country
             serializer = UsersSerializer(BotUsers.objects.get(user_id=user_id), data=new_data)
             if serializer.is_valid():
                 serializer.save()
