@@ -144,3 +144,33 @@ class UpdateUserLocation(APIView):
                 "status_code": 404
             }
             return Response(content, status=404)
+
+
+class UpdateUserVipStatus(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        try:
+            user_id = request.data.get("user_id")
+            is_vip = request.data.get("is_vip")
+            new_data = UsersSerializer(BotUsers.objects.get(user_id=user_id)).data
+            new_data["is_vip"] = is_vip
+            serializer = UsersSerializer(BotUsers.objects.get(user_id=user_id), data=new_data)
+            if serializer.is_valid():
+                serializer.save()
+                content = {
+                    'user': str(request.user),
+                    'data': serializer.data,
+                    "status_code": 200
+                }
+                return Response(content)
+            else:
+                content = {"data": serializer.errors, "status_code": 400}
+                return Response(content)
+        except:
+            content = {
+                'user': str(request.user),
+                "status_code": 404
+            }
+            return Response(content, status=404)

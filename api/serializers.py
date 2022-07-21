@@ -7,4 +7,5 @@ class UsersSerializer(serializers.ModelSerializer):
         model = BotUsers
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
+        # exclude = ['created_at', 'updated_at']
 
